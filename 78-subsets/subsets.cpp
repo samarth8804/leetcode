@@ -1,20 +1,24 @@
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int> sub;
-        vector<vector<int>> subs;
+        
+        vector<vector<int>> subsets;
 
-        subset(nums,0,sub,subs);
+        int n = nums.size();
+        int total = 1<<n;
 
-        return subs;
-    }
-private : 
-    void subset(vector<int> &nums,int i,vector<int> &sub,vector<vector<int>> &subs) {
-        subs.push_back(sub);
-        for(int j = i;j<nums.size();j++) {
-            sub.push_back(nums[j]);
-            subset(nums,j+1,sub,subs);
-            sub.pop_back();
+        int mask = 0;
+
+        for(int mask = 0;mask<total;mask++) {
+            vector<int> subset;
+            for(int i=0;i<n;i++) {
+                if(mask & (1<<i)) {
+                    subset.push_back(nums[i]);
+                }
+            }
+            subsets.push_back(subset);
         }
+
+        return subsets;
     }
 };
