@@ -3,14 +3,11 @@ public:
     int longestConsecutive(vector<int>& nums) {
 
         
-        set<int> cons;
-        int longestSeq = 1;
-        int currentSeq = 1;
+        unordered_set<int> cons;
+        int longestSeq = 0;
         int n = nums.size();
 
-        if(n==0) {
-            return 0;
-        }
+        
 
         for(int i=0;i<n;i++) {
             if(!cons.count(nums[i])) {
@@ -18,23 +15,24 @@ public:
             }
         }
 
-        set<int>::iterator prev = cons.begin();
 
-        for(set<int>::iterator it = ++cons.begin();it!=cons.end();++it) {
+        for(unordered_set<int>::iterator it = cons.begin();it!=cons.end();++it) {
+            
+        int currentSeq = 0;
 
-            if(*prev+1 == *it) {
-                currentSeq++;
+            if(cons.count(*it-1)) {
+                continue;
             }
             else {
-                if(currentSeq>longestSeq) {
-                    longestSeq = currentSeq;
+                int i = 0;
+                while(cons.count(*it+i)) {
+                    currentSeq++;
+                    i++;
                 }
-                currentSeq = 1;
+                longestSeq = max(currentSeq,longestSeq);
             }
-            prev = it;
         }
 
-        longestSeq = max(currentSeq,longestSeq);
         return longestSeq;
     }
 };
