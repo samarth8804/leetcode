@@ -2,7 +2,7 @@ class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         
-        map<int,int> prefixSum;
+        unordered_map<int,int> prefixSum;
         int currSum = 0;
         int n = nums.size();
         prefixSum[0] = 1;
