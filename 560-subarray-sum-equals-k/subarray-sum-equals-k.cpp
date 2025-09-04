@@ -8,11 +8,12 @@ public:
         prefixSum[0] = 1;
         int count = 0;
 
-        for(int i=0;i<n;i++) {
-            currSum = currSum + nums[i];
+        for(auto num : nums) {
+            currSum = currSum + num;
 
-            if(prefixSum.count(currSum - k)) {
-                count = count + prefixSum[currSum-k];
+            unordered_map<int,int>::iterator it = prefixSum.find(currSum - k);
+            if(it != prefixSum.end()) {
+                count = count + it->second;
             }
 
             prefixSum[currSum]++;
