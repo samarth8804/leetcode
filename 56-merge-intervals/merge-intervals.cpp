@@ -5,6 +5,8 @@ public:
         vector<vector<int>> result;
         int m = intervals.size();
 
+        if(m<=1) return intervals;
+
         sort(intervals.begin(),intervals.end());
 
         result.push_back(intervals[0]);
