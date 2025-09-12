@@ -9,9 +9,7 @@ public:
 
         while(left<right) {
 
-            int hi = min(height[left],height[right]);
-            int area = hi * (right-left);
-            maxArea = max(area,maxArea);
+            maxArea = max((min(height[left],height[right]) * (right-left)),maxArea);
             if(height[left]<height[right]) {
                 left++;
             }
