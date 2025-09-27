@@ -10,17 +10,14 @@ public:
             return -1;
         }
 
-        vector<int>::iterator it1 = max_element(bloomDay.begin(),bloomDay.end());
-        int right = *it1;
+        int left = INT_MAX,right = INT_MIN;
 
-        vector<int>::iterator it2 = min_element(bloomDay.begin(),bloomDay.end());
-        int left = *it2;
+        for(auto x : bloomDay) {
+            left = min(left,x);
+            right = max(right,x);
+        }
 
         while(left<=right) {
-
-            if(ans == left) {
-                break;
-            }
 
             int mid = left + ((right-left)/2);
 
@@ -28,7 +25,7 @@ public:
 
             int count = 0;
 
-            for(int i=0;i<n;i++) {
+            for(int i=0;i<n && bouquet<m;i++) {
                 if(bloomDay[i] <= mid) {
                     count++;
                     if(count == k) {
@@ -41,7 +38,7 @@ public:
                 }
             }
 
-            if(bouquet >= m) {
+            if(bouquet == m) {
                 ans = mid;
                 right = mid-1;
             }
