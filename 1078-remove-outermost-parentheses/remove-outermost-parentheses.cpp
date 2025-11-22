@@ -6,27 +6,27 @@ public:
 
         int count = 0;
 
-        int start = 0;
-
-        string ans = "";
+        string result = "";
 
         for(int i=0;i<len;i++) {
 
             if(s[i] == '(') {
+
+                if(count>0) {
+                    result = result + s[i];
+                }
+
                 count++;
             }
             else if(s[i] == ')') {
-                count--;
-                if(count==0) {
-                    for(int j = start+1;j<i;j++) {
-                        ans = ans + s[j];
-                    }
-                    start = i+1;
+                if(count > 1) {
+                    result = result + s[i];
                 }
+
+                count--;
             }
         }
 
-        return ans;
-
+        return result;
     }
 };
