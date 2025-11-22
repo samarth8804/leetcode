@@ -4,31 +4,31 @@ public:
         
         reverse(s.begin(),s.end());
 
-        string result = "";
+        int left = 0,right = 0,i = 0;
 
         int n = s.length();
 
-        int i=0;
-
         while(i<n) {
 
-            string word = "";
-
-            while(i<n && s[i] != ' ') {
-                word = word + s[i];
+            while(i<n && s[i] == ' ') {
                 i++;
             }
 
-            if(word.length() > 0) {
-                
-            reverse(word.begin(),word.end());
-
-            result = result + " " + word;
+            if(i==n) {
+                break;
             }
 
-            i++;
+            while(i<n && s[i] != ' ') {
+                s[right++] = s[i++];
+            }
+            reverse(s.begin()+left,s.begin()+right);
+            s[right++] = ' ';
+            left = right;
+            i++; 
         }
 
-        return result.substr(1);
+        s.resize(right-1);
+
+        return s;
     }
 };
