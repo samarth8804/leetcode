@@ -18,12 +18,14 @@ public:
 
                 count++;
             }
-            else if(s[i] == ')') {
-                if(count > 1) {
+            else{
+
+                
+                count--;
+                if(count > 0) {
                     result = result + s[i];
                 }
 
-                count--;
             }
         }
 
