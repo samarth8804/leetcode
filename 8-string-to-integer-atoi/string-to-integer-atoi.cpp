@@ -21,10 +21,10 @@ public:
 
         while(i<n && isdigit(s[i])) {
             result = result * 10 + (s[i]-'0');
-            if(result*sign >= INT_MAX) {
+            if(result*sign > INT_MAX) {
                 return INT_MAX;
             }
-            else if(result*sign <= INT_MIN) {
+            else if(result*sign < INT_MIN) {
                 return INT_MIN;
             }
             i++;
