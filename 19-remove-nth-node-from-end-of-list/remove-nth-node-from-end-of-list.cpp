@@ -41,7 +41,10 @@ public:
             pos--;
         }
 
-        temp->next = temp->next->next;
+        ListNode* tmp = temp->next;
+        temp->next = tmp->next;
+        tmp->next = nullptr;
+        delete tmp;
 
         return head;
     }
