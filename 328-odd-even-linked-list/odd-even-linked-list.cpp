@@ -19,10 +19,11 @@ public:
         ListNode *even = head->next;
         ListNode *temp = even;
 
-        while(odd != nullptr && even != nullptr && odd->next != nullptr && even->next != nullptr) {
-            odd->next = odd->next->next;
-            even->next = even->next->next;
+        while(even != nullptr && even->next != nullptr) {
+            odd->next = even->next;
             odd = odd->next;
+
+            even->next = odd->next;
             even = even->next;
         }
 
