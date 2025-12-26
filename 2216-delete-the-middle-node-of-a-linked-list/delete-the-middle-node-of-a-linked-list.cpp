@@ -18,16 +18,15 @@ public:
         
         ListNode *slow = head;
         ListNode *fast = head;
-        ListNode *temp = slow;
+        fast = fast->next->next;
 
         while(fast && fast->next) {
-            temp = slow;
             slow = slow->next;
             fast = fast->next->next;
         }
 
-        temp->next = slow->next;
-        slow->next = nullptr;
+        slow->next = slow->next->next;
+        
 
         return head;
 
