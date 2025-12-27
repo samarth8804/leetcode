@@ -9,32 +9,72 @@
  * };
  */
 class Solution {
-public:
-    ListNode* sortList(ListNode* head) {
+private:
+    ListNode *mergeSortedLL(ListNode *left,ListNode *right) {
+        ListNode *dummy = new ListNode(-1);
+        ListNode *temp = dummy;
+
+        while(left != nullptr && right != nullptr) {
+            if(left->val <= right->val) {
+                temp->next = left;
+                left = left->next;
+            }
+            else{
+                temp->next = right;
+                right = right->next;
+            }
+            temp = temp->next;
+        }
+
+        while(left != nullptr) {
+            temp->next = left;
+            left = left->next;
+            temp = temp->next;
+        }
+
+        while(right != nullptr) {
+            temp->next = right;
+            right = right->next;
+            temp = temp->next;
+        }
+
+        return dummy->next;
+    }
+    ListNode *findMiddle(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head->next;
+
+        while(fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
+    }
+    ListNode *mergeSort(ListNode *head) {
 
         if(head == nullptr || head->next == nullptr) {
             return head;
         }
+
+        ListNode *middle = findMiddle(head);
+
+        ListNode *right = middle->next;
+        ListNode *left = head;
+
+        middle->next = nullptr;
+
+        left = mergeSort(left);
+        right = mergeSort(right);
+
+        return mergeSortedLL(left,right);
+
         
-        vector<int> arr;
-
-        ListNode *temp = head;
-
-        while(temp!= nullptr) {
-            arr.push_back(temp->val);
-            temp = temp->next;
-        }
-
-        sort(arr.begin(),arr.end());
-
-        head = new ListNode(arr[0]);
-        temp = head;
-
-        for(int i=1;i<arr.size();i++) {
-            ListNode *tmp = new ListNode(arr[i]);
-            temp->next = tmp;
-            temp = temp->next;
-        }
+    }
+public:
+    ListNode* sortList(ListNode* head) {
+        
+        head = mergeSort(head);
 
         return head;
     }
