@@ -11,47 +11,30 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+        ListNode *dummy = new ListNode(0);
+        ListNode *curr = dummy;
+        int carry = 0;
 
-        ListNode* temp1 = l1;
-        ListNode* temp2 = l2;
+        while(l1 != nullptr || l2 != nullptr || carry != 0) {
+            int value = carry;
 
-        int carry = (temp1->val + temp2->val) / 10;
-        int value = (temp1->val + temp2->val) % 10;
-
-        ListNode* l3 = new ListNode(value);
-        ListNode* mover = l3;
-
-        temp1 = temp1->next;
-        temp2 = temp2->next;
-
-        while (temp1 != nullptr || temp2 != nullptr) {
-
-            if (temp1 != nullptr && temp2 != nullptr) {
-                value = (temp1->val + temp2->val + carry) % 10;
-                carry = (temp1->val + temp2->val + carry) / 10;
-                temp1 = temp1->next;
-                temp2 = temp2->next;
-            } else if (temp1 != nullptr) {
-                value = (temp1->val + carry) % 10;
-                carry = (temp1->val + carry) / 10;
-                temp1 = temp1->next;
-            } else {
-                value = (temp2->val + carry) % 10;
-                carry = (temp2->val + carry) / 10;
-                temp2 = temp2->next;
+            if(l1 != nullptr) {
+                value += l1->val;
+                l1 = l1->next;
+            }
+            if(l2 != nullptr) {
+                value += l2->val;
+                l2 = l2->next;
             }
 
-            ListNode* temp = new ListNode(value);
-            mover->next = temp;
-            mover = mover->next;
+            carry = value / 10;
+
+            ListNode *newNode = new ListNode(value%10);
+            curr->next = newNode;
+            curr = curr->next;
         }
 
-        if (carry == 1) {
-            ListNode* temp = new ListNode(carry);
-            mover->next = temp;
-            mover = mover->next;
-        }
-
-        return l3;
+        return dummy->next;
     }
 };
