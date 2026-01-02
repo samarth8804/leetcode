@@ -1,40 +1,27 @@
 class Solution {
 private:
-    void subset(vector<int> &nums,int mask,int i,vector<int> &sub,int n) {
-        if(i == n) {
+    void subsequence(vector<vector<int>> &result,vector<int> &nums,int index,int n,vector<int> &sub) {
+        if(index == n) {
+            result.push_back(sub);
             return;
         }
 
-        if(mask & (1<<i)) {
-            sub.push_back(nums[i]);
-        }
+        subsequence(result,nums,index+1,n,sub);
 
-        subset(nums,mask,i+1,sub,n);
-    }
-    void generateSubsets(vector<int> &nums,int total,int mask,vector<vector<int>> &result,int n) {
-        if(mask == total) {
-            return;
-        }
+        sub.push_back(nums[index]);
 
-        vector<int> sub;
-        
-        int i = 0;
+        subsequence(result,nums,index+1,n,sub);
 
-        subset(nums,mask,i,sub,n);
-
-        result.push_back(sub);
-
-        generateSubsets(nums,total,mask+1,result,n);
+        sub.pop_back();
     }
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         
         vector<vector<int>> result;
+        vector<int> sub;
         int n = nums.size();
-        int total = 1<<n;
-        int mask = 0;
 
-        generateSubsets(nums,total,mask,result,n);
+        subsequence(result,nums,0,n,sub);
 
         return result;
     }
