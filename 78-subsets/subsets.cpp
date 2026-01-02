@@ -1,9 +1,15 @@
 class Solution {
 private:
-    void subset(vector<int> &nums,int mask,int i,vector<int> &sub) {
+    void subset(vector<int> &nums,int mask,int i,vector<int> &sub,int n) {
+        if(i == n) {
+            return;
+        }
+
         if(mask & (1<<i)) {
             sub.push_back(nums[i]);
         }
+
+        subset(nums,mask,i+1,sub,n);
     }
     void generateSubsets(vector<int> &nums,int total,int mask,vector<vector<int>> &result,int n) {
         if(mask == total) {
@@ -11,9 +17,11 @@ private:
         }
 
         vector<int> sub;
-        for(int i=0;i<n;i++) {
-            subset(nums,mask,i,sub);
-        }
+        
+        int i = 0;
+
+        subset(nums,mask,i,sub,n);
+
         result.push_back(sub);
 
         generateSubsets(nums,total,mask+1,result,n);
