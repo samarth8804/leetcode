@@ -1,27 +1,22 @@
 class Solution {
-private:
-    void subsequence(vector<vector<int>> &result,vector<int> &nums,int index,int n,vector<int> &sub) {
-        if(index == n) {
-            result.push_back(sub);
-            return;
-        }
-
-        subsequence(result,nums,index+1,n,sub);
-
-        sub.push_back(nums[index]);
-
-        subsequence(result,nums,index+1,n,sub);
-
-        sub.pop_back();
-    }
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         
-        vector<vector<int>> result;
-        vector<int> sub;
+        int mask = 0;
         int n = nums.size();
+        int total = 1<<n;
 
-        subsequence(result,nums,0,n,sub);
+        vector<vector<int>> result;
+
+        for(int mask=0;mask<total;mask++) {
+            vector<int> sub;
+            for(int i=0;i<n;i++) {
+                if(mask & (1<<i)) {
+                    sub.push_back(nums[i]);
+                }
+            }
+            result.push_back(sub);
+        }
 
         return result;
     }
