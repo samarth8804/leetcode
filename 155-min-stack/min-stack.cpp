@@ -16,8 +16,7 @@ public:
                 st.push(val);
             }
             else{
-                long long int newVal = ((long long)2*val) - minVal;
-                st.push(newVal);
+                st.push((long long)2*val - minVal);
                 minVal = val;
             }
         }
